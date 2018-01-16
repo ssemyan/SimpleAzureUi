@@ -2,7 +2,8 @@
 	"use strict";
 
 	var docViewModel = {
-		documents: ko.observableArray()	
+		documents: ko.observableArray(),
+		emailAdd: ko.observable()
 	};
 
 	var apiUrl = "";
@@ -49,5 +50,18 @@
 
 	return {
 		model: docViewModel,
+		SendEmail: function () {
+			var xhr = new XMLHttpRequest();
+			xhr.open('GET', apiUrl + "/" + docViewModel.emailAdd(), true);
+			xhr.send();
+			xhr.onreadystatechange = processRequest;
+
+			function processRequest(e) {
+				if (xhr.readyState == 4 && xhr.status == 200) {
+					alert(xhr.responseText);
+					
+				}
+			}
+		}
 	}
 }(ko));
