@@ -58,7 +58,6 @@
   <ItemGroup>
     <Content Include="common.js" />
     <Content Include="index.html" />
-    <Content Include="IsLocal.asp" />
     <Content Include="mainscript.js" />
     <Content Include="vars.js" />
     <Content Include="Web.config" />

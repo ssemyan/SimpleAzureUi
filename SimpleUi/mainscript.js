@@ -28,28 +28,22 @@
 	// Do this on start
 	$(document).ready(function () {
 
-		// Need to know if we are running local or in Azure
+		// Set the URL based in whether we are running locally or not
+		// The URL locations are set in the 
 		// This is a hack and is better solved via a build process
-		var xhr = new XMLHttpRequest();
-		xhr.open('GET', "/IsLocal.asp", true);
-		xhr.send();
-		xhr.onreadystatechange = processRequest;
-
-		function processRequest(e) {
-			if (xhr.readyState == 4 && xhr.status == 200) {
-				var response = xhr.responseText;
-				if (response == 'True') {
-					apiUrl = localUrl; 
-				} else {
-					apiUrl = remoteUrl;
-				}
-				getApiData();
-			}
+		if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
+			apiUrl = localUrl;
+		} else {
+			apiUrl = remoteUrl;
 		}
+
+		// Now get the data
+		getApiData();
 	});
 
 	return {
 		model: docViewModel,
+
 		SendEmail: function () {
 			var xhr = new XMLHttpRequest();
 			xhr.open('GET', apiUrl + "/" + docViewModel.emailAdd(), true);
